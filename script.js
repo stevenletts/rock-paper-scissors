@@ -5,47 +5,56 @@ function getComputerChoice() {
     return selection[random];
 }
 
+let scoreVar = 0;
+
 function playRound(playerSelection, computerSelection){
     const player = playerSelection.toLowerCase();
     const computer = computerSelection.toLowerCase();
+
+    if (scoreVar === 5){
+        return `You win!`;
+    } else if (scoreVar === -5){
+        return `Computer Wins`;
+    } 
 
     if (player === computer){
         return "Draw";
     } else if (player === "rock"){
         if (computer === "scissors"){
-            return `Player wins, ${player} beats ${computer}`;
+            scoreVar += 1;
+            return `Player wins, ${player} beats ${computer}. The score is ${scoreVar}`;
         } else {
-            return `Computer wins ${computer} beats ${player}`;
+            scoreVar -= 1;
+            return `Computer wins ${computer} beats ${player}. The score is ${scoreVar}`;
         }
     } else if (player === "paper"){
         if (computer === "rock"){
-            return `Player wins, ${player} beats ${computer}`;
+            scoreVar += 1;
+            return `Player wins, ${player} beats ${computer}. The score is ${scoreVar}`;
         } else {
-            return `Computer wins ${computer} beats ${player}`;
+            scoreVar -= 1;
+            return `Computer wins ${computer} beats ${player}. The score is ${scoreVar}`;
         }
     } else if (player === "scissors"){
         if (computer === "rock"){
-            return `Player wins, ${player} beats ${computer}`;
+            scoreVar += 1;
+            return `Player wins, ${player} beats ${computer}. The score is ${scoreVar}`;
         } else {
-            return `Computer wins ${computer} beats ${player}`;
+            scoreVar -= 1;
+            return `Computer wins ${computer} beats ${player}. The score is ${scoreVar}`;
         }
     } else {
         console.log("logic error");
     }
 }
 
-function game(){
-    // for (let i = 0; i < 5; i++){
-    const choice = String(prompt("Rock, Paper or Scissors"));
-    console.log(playRound(choice, getComputerChoice()));
-    // }
-}
 
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
-        console.log(playRound(button.id, getComputerChoice()));
+        const result = (playRound(button.id, getComputerChoice()));
+        document.getElementById("score").innerHTML = result
+        
     })
 })
 
-const scoreDiv = document.getElementById("score")
